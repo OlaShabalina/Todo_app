@@ -9,16 +9,17 @@
 <body>
     <h1>Things to do:</h1>
  
-    <input id="search-text" placeholder="Type your todo here" type="text">
-    <div id="todos"></div>
-    <form id="todo-form">
-        <input type="text" name="addTodo" placeholder="Type new todo here">
-        <button>Submit</button>
-    </form>
+    <input id="search-text" placeholder="Filter todos" type="text">
     <label>
         <input type="checkbox" id="hide-completed">
         Hide completed todos
     </label>
+    <div id="todos"></div>
+    <form id="new-todo">
+        <input type="text" name="addTodo" placeholder="Something to do">
+        <button>Submit</button>
+    </form>
+    <script src="todo-functions.js"></script>
     <script src="todos-app.js"></script>
 </body>
 </html>
