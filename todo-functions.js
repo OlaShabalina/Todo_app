@@ -1,24 +1,25 @@
+'use strict'
+
 // Read existing todos from the local storage
 
-const getSavedTodos = function () {
+const getSavedTodos = () => {
     const todosJSON = localStorage.getItem('todos')
-
-    if (todosJSON !== null) {
-        return JSON.parse(todosJSON)
-    } else {
-        return []
+    try {
+        return todosJSON !== null ? JSON.parse(todosJSON) : [];
+    } catch (err) {
+        return [];
     }
 }
 
 // Save todos to local storage
 
-const saveTodos = function () {
+const saveTodos = () => {
     localStorage.setItem('todos', JSON.stringify(todos));
 }
 
 // Render (filter) todos
 
-const renderTodos = function (todos, filters) {
+const renderTodos = (todos, filters) => {
     let filteredTodos = todos.filter((todo) => {
         const searchTextMatch = todo.text.toLowerCase().includes(filters.searchText.toLowerCase());
         const hideCompletedMatch = !filters.hideCompleted || !todo.completed;
@@ -28,9 +29,7 @@ const renderTodos = function (todos, filters) {
 
     document.querySelector('#todos').innerHTML = '';
 
-    let incompletedTodo = filteredTodos.filter((todo) => {
-        return !todo.completed
-    });
+    let incompletedTodo = filteredTodos.filter((todo) => !todo.completed);
     
     document.querySelector('#todos').appendChild(generateSummeryDOM(incompletedTodo));
 
@@ -40,22 +39,18 @@ const renderTodos = function (todos, filters) {
 }
 
 // Checkbox setting - complete todo once checked
-    const toggleTodo = function (id) {
-        const todo = todos.find((todo) => {
-            return todo.id === id;
-        });
+    const toggleTodo = (id) => {
+        const todo = todos.find((todo) => todo.id === id);
 
-        if (todo !== undefined) {
+        if (todo) {
             todo.completed = !todo.completed;
         }
     };
 
 // Function to remove todo 
 
-const removeTodo = function (id) {
-    const todoIndex = todos.findIndex((todo) => {
-        return todo.id === id;
-    });
+const removeTodo = (id) => {
+    const todoIndex = todos.findIndex((todo) => todo.id === id);
     if (todoIndex > -1) {
         todos.splice(todoIndex, 1);
     }
@@ -63,7 +58,7 @@ const removeTodo = function (id) {
 
 //  Generate todo DOM
 
-const generateTodoDOM = function (todo) {
+const generateTodoDOM = (todo) => {
     let todoContainer = document.createElement('div');
     let todoCheckbox = document.createElement('input');
     let todoText = document.createElement('span');
@@ -95,7 +90,7 @@ const generateTodoDOM = function (todo) {
 
 //  Get DOM elements to list summary
 
-const generateSummeryDOM = function(incompletedTodo) {
+const generateSummeryDOM = (incompletedTodo) => {
     let totalPhrase = document.createElement('h2');
     totalPhrase.textContent = `You have ${incompletedTodo.length} todos left`;
     return totalPhrase;
