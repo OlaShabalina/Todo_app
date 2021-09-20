@@ -77,7 +77,7 @@ const generateTodoDOM = (todo) => {
     todoText.textContent = todo.text;
     todoContainer.appendChild(todoText);
 
-    removeTodoButton.textContent = 'x';
+    removeTodoButton.textContent = 'delete';
     todoContainer.appendChild(removeTodoButton);
     removeTodoButton.addEventListener('click', () => {
         removeTodo(todo.id);
